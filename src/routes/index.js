@@ -1,14 +1,62 @@
-import { Router } from "express";
-import adminRoutes from "./adminRoutes";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+} from "react-router-dom";
+import ProtectedRoute from "../component/protected";
+import Dashboard from "../pages/dashboard";
+import AddNewProduct from "../pages/addProduct";
+import ViewProducts from "../pages/viewProduct";
+import EditProduct from "../pages/editProduct";
+import Demo from "../pages/demo";
 
-const router = Router();
 
-const allRoutes = [
-   { path: "/admin", route: adminRoutes}
-];
+const pages = [
+    {
+        path: "/",
+        compo: <Dashboard />,
+        isProtected: true
+    },
+    {
+        path: "/add-product",
+        compo: <AddNewProduct />,
+        isProtected: true
+    },
+    {
+        path: "/view-product",
+        compo: <ViewProducts />,
+        isProtected: true
+    },
+    {
+        path: "/edit-product",
+        compo: <EditProduct />,
+        isProtected: true
+    },
+    {
+        path: "/demo",
+        compo: <Demo />,
+        isProtected: true
+    }
+]
 
-allRoutes.forEach(item=>{
-    router.use(item.path, item.route);
-});
+const AllRoutes = () => {
+    return (
+        <Router>
+            <Switch>
+                {
+                    pages.map((item) => {
+                        return (
+                            <Route exact path={item.path} key={item.path} >
+                                <ProtectedRoute>
+                                    {item.compo}
+                                </ProtectedRoute>
+                            </Route>
+                        )
+                    })
+                }
+            </Switch>
+        </Router>
+    )
+}
 
-export default router;
+export default AllRoutes;
