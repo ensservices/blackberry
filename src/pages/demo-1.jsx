@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import ThemeMaker from "../component/theme";
 const sizechart = {
     "male": {
         "size": ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"],
